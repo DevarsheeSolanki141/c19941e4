@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Button } from '@material-ui/core';
+import axios from 'axios';
 
 const ActivityDetail = ({ callId, onClose }) => {
   const [call, setCall] = useState(null);
 
   useEffect(() => {
-    fetch(`https://aircall-backend.onrender.com/activities/${callId}`)
-      .then(response => response.json())
-      .then(data => setCall(data))
+    axios.get(`https://aircall-backend.onrender.com/activities/${callId}`)
+      .then(response => setCall(response.data))
       .catch(error => console.error('Error fetching call details:', error));
   }, [callId]);
 
