@@ -1,4 +1,6 @@
 import React from "react";
+import ActivityDetail from "./ActivityDetail.jsx";
+// Importing Material-UI components, colors and icons
 import {
   ListItem,
   ListItemText,
@@ -13,10 +15,9 @@ import {
 import PhoneCallbackRoundedIcon from "@material-ui/icons/PhoneCallbackRounded";
 import PhoneForwardedRoundedIcon from "@material-ui/icons/PhoneForwardedRounded";
 import InfoIcon from "@material-ui/icons/Info";
-import { green, grey } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
-import ActivityDetail from "../ActivityDetail.jsx";
 
+// Creating custom styles using Material-UI's makeStyles
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
@@ -25,19 +26,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CallWidget = ({ call, actionBtn, handleClick }) => {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const classes = useStyles(); // Using custom style
+  const [open, setOpen] = React.useState(false); // State to manage the dialog open/close
 
+  // Function to open the ActivityDetail dialog
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  // Function to close the ActivityDetail dialog
   const handleClose = () => {
     setOpen(false);
   };
 
   return (
-    <>
+    <React.Fragment>
       {call && (
         <Box p={1}>
           <Paper elevation={3}>
@@ -45,14 +48,16 @@ const CallWidget = ({ call, actionBtn, handleClick }) => {
               <ListItemAvatar>
                 <Avatar>
                   {call.direction === "inbound" ? (
+                    // Display inbound call icon
                     <PhoneCallbackRoundedIcon
                       fontSize="small"
-                      style={{ color: green[500] }}
+                      color="primary"
                     />
                   ) : (
+                    // Display outbound call icon
                     <PhoneForwardedRoundedIcon
                       fontSize="small"
-                      style={{ color: green[500] }}
+                      color="primary"
                     />
                   )}
                 </Avatar>
@@ -60,11 +65,7 @@ const CallWidget = ({ call, actionBtn, handleClick }) => {
               <ListItemText primary={call.from} />
               <ListItemSecondaryAction>
                 <Typography component="div">
-                  <Box
-                    fontSize={12}
-                    fontWeight={900}
-                    style={{ color: grey[500] }}
-                  >
+                  <Box fontSize={12} fontWeight={900} color="secondary">
                     {call.duration} min
                     <IconButton
                       onClick={handleClickOpen}
@@ -88,7 +89,7 @@ const CallWidget = ({ call, actionBtn, handleClick }) => {
           </Paper>
         </Box>
       )}
-    </>
+    </React.Fragment>
   );
 };
 

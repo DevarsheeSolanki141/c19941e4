@@ -1,4 +1,5 @@
 import React from "react";
+// Importing Material-UI components and colors
 import {
   Button,
   Dialog,
@@ -7,6 +8,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@material-ui/core";
+import red from "@material-ui/core/colors/red";
 
 const ActivityDetail = ({
   open,
@@ -15,6 +17,15 @@ const ActivityDetail = ({
   handleClick,
   onClose,
 }) => {
+  const d = new Date(callDetail.created_at);
+  const dtfUS = new Intl.DateTimeFormat("en", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   return (
     <Dialog
       open={open}
@@ -31,7 +42,7 @@ const ActivityDetail = ({
           To: {callDetail.to}
         </DialogContentText>
         <DialogContentText id="alert-dialog-description">
-          Date: {callDetail.created_at}
+          Date/Time: {dtfUS.format(d)}
         </DialogContentText>
         <DialogContentText id="alert-dialog-description">
           Type: {callDetail.call_type}
@@ -47,8 +58,8 @@ const ActivityDetail = ({
         <Button onClick={() => handleClick(callDetail.id)} color="primary">
           {actionBtn}
         </Button>
-        <Button onClick={onClose} color="primary" autoFocus>
-          Calcel
+        <Button onClick={onClose} style={{ color: red[500] }} autoFocus>
+          Cancel
         </Button>
       </DialogActions>
     </Dialog>

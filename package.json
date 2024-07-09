@@ -4,7 +4,7 @@
   "description": "Leap test",
   "main": "index.js",
   "repository": "",
-  "author": "",
+  "author": "Devarshee Solanki",
   "license": "",
   "private": false,
   "scripts": {
@@ -12,14 +12,11 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "@material-ui/styles": "^4.11.5",
     "@material-ui/system": "^4.12.2",
     "@reduxjs/toolkit": "^2.2.6",
-    "axios": "^1.7.2",
     "prop-types": "^15.8.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
