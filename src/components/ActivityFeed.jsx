@@ -1,49 +1,67 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Button, Divider } from '@material-ui/core';
-import { fetchCalls, updateCall } from '../redux/actions';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { List, Button, Box } from "@material-ui/core";
+import { fetchCalls, updateCall } from "../redux/actions";
+import ArchiveIcon from "@material-ui/icons/Archive";
+import { makeStyles } from "@material-ui/core/styles";
+import CallWidget from "./common/CallWidget.jsx";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+    width: "100%",
+  },
+}));
 
 const ActivityFeed = ({ onArchive }) => {
-    const dispatch = useDispatch();
-    const calls = useSelector((state) => state.calls.calls.filter((call) => !call.is_archived));
-    const callStatus = useSelector((state) => state.calls.status);
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const calls = useSelector((state) =>
+    state.calls.calls.filter((call) => !call.is_archived)
+  );
+  const callStatus = useSelector((state) => state.calls.status);
 
-    useEffect(() => {
-        if (callStatus === 'idle') {
-            dispatch(fetchCalls());
-        }
-    }, [calls, dispatch]);
+  useEffect(() => {
+    if (callStatus === "idle") {
+      dispatch(fetchCalls());
+    }
+  }, [calls, dispatch]);
 
-    const handleArchive = (id) => {
-        if (id === 'all') {
-            calls.forEach((call) => {
-                dispatch(updateCall({ id: call.id, is_archived: true }));
-            });
-        } else {
-            dispatch(updateCall({ id, is_archived: true }));
-        }
-        onArchive();
-    };
+  const handleArchive = (id) => {
+    if (id === "all") {
+      calls.forEach((call) => {
+        dispatch(updateCall({ id: call.id, is_archived: true }));
+      });
+    } else {
+      dispatch(updateCall({ id, is_archived: true }));
+    }
+    onArchive();
+  };
 
-    return (
-        <div>
-            <Button variant="contained" color="primary" onClick={() => handleArchive('all')}>Archive All</Button>
-            <List>
-                {calls.map(call => (
-                    <React.Fragment key={call.id}>
-                        <ListItem button>
-                            <ListItemAvatar>
-                                <Avatar>{call.from}</Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary={call.to} secondary={`${call.call_type} - ${call.duration}`} />
-                            <Button variant="contained" color="secondary" onClick={() => handleArchive(call.id)}>Archive</Button>
-                        </ListItem>
-                        <Divider />
-                    </React.Fragment>
-                ))}
-            </List>
-        </div>
-    );
+  return (
+    <Box>
+      <Box mb={2} mt={2}>
+        <Button
+          variant="contained"
+          startIcon={<ArchiveIcon />}
+          className={classes.button}
+          onClick={() => handleArchive("all")}
+        >
+          Archive all calls
+        </Button>
+      </Box>
+      <List>
+        {calls.map((call) => (
+          <CallWidget
+            key={call.id}
+            call={call}
+            actionBtn="Archive"
+            handleClick={handleArchive}
+          ></CallWidget>
+        ))}
+      </List>
+    </Box>
+  );
 };
 
 export default ActivityFeed;

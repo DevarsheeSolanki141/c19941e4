@@ -1,26 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import { Typography, Button } from '@material-ui/core';
-import axios from 'axios';
+import React from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@material-ui/core";
 
-const ActivityDetail = ({ callId, onClose }) => {
-  const [call, setCall] = useState(null);
-
-  useEffect(() => {
-    axios.get(`https://aircall-backend.onrender.com/activities/${callId}`)
-      .then(response => setCall(response.data))
-      .catch(error => console.error('Error fetching call details:', error));
-  }, [callId]);
-
-  if (!call) return <Typography>Loading...</Typography>;
-
+const ActivityDetail = ({
+  open,
+  actionBtn,
+  callDetail,
+  handleClick,
+  onClose,
+}) => {
   return (
-    <div>
-      <Typography variant="h6">{call.from}</Typography>
-      <Typography variant="body1">{call.call_type}</Typography>
-      <Typography variant="body1">{call.time}</Typography>
-      <Typography variant="body1">{call.duration}</Typography>
-      <Button variant="contained" onClick={onClose}>Close</Button>
-    </div>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{"Call Details"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          From: {callDetail.from}
+        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">
+          To: {callDetail.to}
+        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">
+          Date: {callDetail.created_at}
+        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">
+          Type: {callDetail.call_type}
+        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">
+          Duration: {callDetail.duration} min
+        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">
+          Archived: {callDetail.is_archived ? "Yes" : "No"}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => handleClick(callDetail.id)} color="primary">
+          {actionBtn}
+        </Button>
+        <Button onClick={onClose} color="primary" autoFocus>
+          Calcel
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

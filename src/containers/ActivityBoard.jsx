@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import { Container, Typography, Tab, Tabs, Box } from '@material-ui/core';
-import ActivityFeed from '../components/ActivityFeed.jsx';
-import ActivityDetail from '../components/ActivityDetail.jsx';
-import ArchivedCalls from '../components/ArchivedCalls.jsx';
+import React, { useState } from "react";
+import { Container, Tab, Tabs, Box } from "@material-ui/core";
+import ActivityFeed from "../components/ActivityFeed.jsx";
+import ArchivedCalls from "../components/ArchivedCalls.jsx";
 
-function App() {
-  const [selectedCall, setSelectedCall] = useState(null);
+function ActivityBoard() {
   const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (event, newValue) => {
@@ -15,6 +13,7 @@ function App() {
   const switchToArchivedTab = () => {
     setTabValue(1);
   };
+
   const switchToUnarchivedTab = () => {
     setTabValue(0);
   };
@@ -27,13 +26,12 @@ function App() {
       </Tabs>
       <Box>
         {tabValue === 0 && <ActivityFeed onArchive={switchToArchivedTab} />}
-        {tabValue === 1 && <ArchivedCalls onUnarchive={switchToUnarchivedTab} />}
+        {tabValue === 1 && (
+          <ArchivedCalls onUnarchive={switchToUnarchivedTab} />
+        )}
       </Box>
-      {selectedCall && (
-        <ActivityDetail callId={selectedCall} onClose={() => setSelectedCall(null)} />
-      )}
     </Container>
   );
 }
 
-export default App;
+export default ActivityBoard;
