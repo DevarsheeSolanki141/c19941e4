@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Header from './containers/Header.jsx';
 import ActivityBoard from "./containers/ActivityBoard.jsx";
+import Footer from './containers/Footer.jsx';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
     <div className='container'>
       <Header />
       <ActivityBoard />
+      <Footer />
     </div>
   );
 };

@@ -10,7 +10,6 @@ import { makeStyles } from "@material-ui/core/styles";
 // Creating custom styles using Material-UI's makeStyles
 const useStyles = makeStyles((theme) => ({
   button: {
-    margin: theme.spacing(1),
     width: "100%",
   },
 }));

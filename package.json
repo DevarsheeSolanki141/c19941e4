@@ -17,7 +17,6 @@
     "@material-ui/styles": "^4.11.5",
     "@material-ui/system": "^4.12.2",
     "@reduxjs/toolkit": "^2.2.6",
-
     "axios": "^1.7.2",
     "prop-types": "^15.8.1",
     "react": "^16.3.1",

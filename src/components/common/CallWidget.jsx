@@ -19,15 +19,14 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // Creating custom styles using Material-UI's makeStyles
 const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-    width: "100%",
+  callIcon: {
+    color: theme.palette.primary.main
   },
 }));
 
 const CallWidget = ({ call, actionBtn, handleClick }) => {
   const classes = useStyles(); // Using custom style
-  const [open, setOpen] = React.useState(false); // State to manage the dialog open/close
+   const [open, setOpen] = React.useState(false); // State to manage the dialog open/close
 
   // Function to open the ActivityDetail dialog
   const handleClickOpen = () => {
@@ -42,7 +41,7 @@ const CallWidget = ({ call, actionBtn, handleClick }) => {
   return (
     <React.Fragment>
       {call && (
-        <Box p={1}>
+        <Box pb={1}>
           <Paper elevation={3}>
             <ListItem>
               <ListItemAvatar>
@@ -51,13 +50,13 @@ const CallWidget = ({ call, actionBtn, handleClick }) => {
                     // Display inbound call icon
                     <PhoneCallbackRoundedIcon
                       fontSize="small"
-                      color="primary"
+                      className={classes.callIcon}
                     />
                   ) : (
                     // Display outbound call icon
                     <PhoneForwardedRoundedIcon
                       fontSize="small"
-                      color="primary"
+                      className={classes.callIcon}
                     />
                   )}
                 </Avatar>
@@ -77,7 +76,6 @@ const CallWidget = ({ call, actionBtn, handleClick }) => {
                     <ActivityDetail
                       open={open}
                       onClose={handleClose}
-                      className={classes.paper}
                       callDetail={call}
                       actionBtn={actionBtn}
                       handleClick={handleClick}
